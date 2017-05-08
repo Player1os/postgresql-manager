@@ -1,0 +1,14 @@
+{
+  "apps": [
+    {
+      "name": "buffpanel_sever_backup_development",
+      "script": "src",
+      "cwd": ".",
+      "log_date_format": "YYYY-MM-DD HH:mm:ss",
+      "exec_mode": "fork_mode",
+      "error_file": "output/err.log",
+      "out_file": "output/out.log",
+      "combine_logs": true
+    }
+  ]
+}
