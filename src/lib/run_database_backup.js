@@ -45,6 +45,9 @@ const timestamp = () => {
 
 // Export the database backup execution function.
 module.exports = (databaseName, backupDirectoryPath, backupFileExtension, backupMaxCount) => {
+	// Determine the backup file's name.
+	const backupFilePath = path.join(backupDirectoryPath, timestamp() + backupFileExtension)
+
 	// Encapsulate the following statements in a promise.
 	return Promise.resolve()
 		.then(() => {
@@ -52,9 +55,6 @@ module.exports = (databaseName, backupDirectoryPath, backupFileExtension, backup
 			if (!backupLock.aquire(backupDirectoryPath)) {
 				throw new Error('The lock could not be aquired')
 			}
-
-			// Determine the backup file's name.
-			const backupFilePath = path.join(backupDirectoryPath, timestamp() + backupFileExtension)
 
 			// Spawn the pg dump process.
 			return spwanProcess('pg_dump', ['-Fc', databaseName], {
@@ -86,5 +86,8 @@ module.exports = (databaseName, backupDirectoryPath, backupFileExtension, backup
 
 			// Release the backup lock.
 			backupLock.release(backupDirectoryPath)
+
+			// Return the name of the created backup.
+			return backupFilePath
 		})
 }

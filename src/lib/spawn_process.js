@@ -8,7 +8,7 @@ const childProcess = require('child_process')
 
 // Export the promise generator.
 module.exports = (cmd, args, options = {}) => {
-	// Create a promise
+	// Create a promise.
 	return new Promise((resolve, reject) => {
 		// Define variables for collecting standard stream.
 		const data = {

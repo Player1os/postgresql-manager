@@ -10,6 +10,9 @@ const path = require('path')
 
 // Export the database restore execution function.
 module.exports = (databaseName, backupDirectoryPath, backupFilename) => {
+	// Determin the backup file path.
+	const backupFilePath = path.join(backupDirectoryPath, backupFilename)
+
 	// Encapsulate the following statements in a promise.
 	return Promise.resolve()
 		.then(() => {
@@ -18,14 +21,14 @@ module.exports = (databaseName, backupDirectoryPath, backupFilename) => {
 				throw new Error('The lock could not be aquired')
 			}
 
-			// Determin the backup file path.
-			const backupFilePath = path.join(backupDirectoryPath, backupFilename)
-	
 			// Spawn the pg restore process.
 			return spwanProcess('pg_restore', ['-c', '-d', databaseName, backupFilePath])
 		})
 		.then(() => {
 			// Release the backup lock.
 			backupLock.release(backupDirectoryPath)
+
+			// Return the name of the restored backup.
+			return backupFilePath
 		})
 }

@@ -50,6 +50,10 @@ runDatabaseRestore(
 	config.APP_DATABASE_NAME,
 	normalizedBackupDirectoryPath,
 	backupFilename)
+	// Report success.
+	.then((backupFilename) => {
+		console.log('The backup file "', backupFilename, '" has been successfully restored')
+	})
 	// Exit on error.
 	.catch((err) => {
 		throw err

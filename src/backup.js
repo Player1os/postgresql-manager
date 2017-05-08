@@ -17,6 +17,10 @@ runDatabaseBackup(
 	path.normalize(config.APP_BACKUP_DIRECTORY),
 	config.APP_BACKUP_EXTENSION,
 	config.APP_BACKUP_MAX_COUNT)
+	// Report success.
+	.then(() => {
+		console.log('The backup file "', backupFilename, '" has been successfully created')
+	})
 	// Exit on error.
 	.catch((err) => {
 		throw err
