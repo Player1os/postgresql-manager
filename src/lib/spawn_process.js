@@ -28,23 +28,23 @@ module.exports = (cmd, args, options = {}) => {
 			})
 		
 		if (options.stdout) {
+			// Redirect the standard output stream to the provided stream.
+			spawn.stdout.pipe(options.stdout)
+		} else {
 			// Collect the standard out stream data.
 			spawn.stdout.on('data', (newData) => {
 				data.out += newData
 			})
-		} else {
-			// Redirect the standard output stream to the provided stream.
-			spawn.stdout.pipe(options.stdout)
 		}
 		
 		if (options.stderr) {
+			// Redirect the standard err stream to the provided stream.
+			spawn.stderr.pipe(options.stderr)
+		} else {
 			// Collect the standard err stream data.
 			spawn.stderr.on('data', (newData) => {
 				data.err += newData
 			})
-		} else {
-			// Redirect the standard err stream to the provided stream.
-			spawn.stderr.pipe(options.stderr)
 		}
 	})
 }
