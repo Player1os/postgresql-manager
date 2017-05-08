@@ -7,7 +7,7 @@ const Promise = require('bluebird')
 const childProcess = require('child_process')
 
 // Export the promise generator.
-module.exports = (cmd, args) => {
+module.exports = (cmd, args, options = {}) => {
 	// Create a promise
 	return new Promise((resolve, reject) => {
 		// Define variables for collecting standard stream.
@@ -27,14 +27,24 @@ module.exports = (cmd, args) => {
 				resolve(code, signal, data)
 			})
 		
-		// Collect the standard out stream data.
-		spawn.stdout.on('data', (newData) => {
-			data.out += newData
-		})
-
-		// Collect the standard err stream data.
-		spawn.stderr.on('data', (newData) => {
-			data.err += newData
-		})
+		if (options.stdout) {
+			// Collect the standard out stream data.
+			spawn.stdout.on('data', (newData) => {
+				data.out += newData
+			})
+		} else {
+			// Redirect the standard output stream to the provided stream.
+			spawn.stdout.pipe(options.stdout)
+		}
+		
+		if (options.stderr) {
+			// Collect the standard err stream data.
+			spawn.stderr.on('data', (newData) => {
+				data.err += newData
+			})
+		} else {
+			// Redirect the standard err stream to the provided stream.
+			spawn.stderr.pipe(options.stderr)
+		}
 	})
 }

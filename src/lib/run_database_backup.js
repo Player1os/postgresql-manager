@@ -57,7 +57,9 @@ module.exports = (databaseName, backupDirectoryPath, backupFileExtension, backup
 			const backupFilePath = path.join(backupDirectoryPath, timestamp() + backupFileExtension)
 
 			// Spawn the pg dump process.
-			return spwanProcess('pg_dump', ['-Fc', databaseName, '>', backupFilePath])
+			return spwanProcess('pg_dump', ['-Fc', databaseName], {
+				stdout: fs.createWriteStream(backupFilePath),
+			})
 		})
 		.then(() => {
 			// Create a regexp for catching all backup files.
