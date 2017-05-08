@@ -24,6 +24,10 @@ const job = new cron.CronJob({
 			path.normalize(config.APP_BACKUP_DIRECTORY),
 			config.APP_BACKUP_EXTENSION,
 			config.APP_BACKUP_MAX_COUNT)
+			// Report success.
+			.then((backupFilename) => {
+				console.log(`The backup file '${backupFilename}' has been successfully created`)
+			})
 			// Report error.
 			.catch((err) => {
 				console.error(err)
