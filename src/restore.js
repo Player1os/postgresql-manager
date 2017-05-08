@@ -52,7 +52,7 @@ runDatabaseRestore(
 	backupFilename)
 	// Report success.
 	.then((backupFilename) => {
-		console.log('The backup file "', backupFilename, '" has been successfully restored')
+		console.log(`The backup file '${backupFilename}' has been successfully restored`)
 	})
 	// Exit on error.
 	.catch((err) => {
