@@ -3,6 +3,9 @@
 // Load npm modules.
 const Promise = require('bluebird')
 
+// Load node modules.
+const childProcess = require('child_process')
+
 // Export the promise generator.
 module.exports = (cmd, args) => {
 	// Create a promise
