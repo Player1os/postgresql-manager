@@ -1,5 +1,5 @@
 {
-  "name": "@cellense/buffpanel-server-backup",
+  "name": "postgresql-server-backup",
   "version": "1.0.0",
   "description": "A small application that regularly runs a backup of the production server",
   "main": "src/index.js",
@@ -11,18 +11,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Cellense/buffpanel-server-backup.git"
+    "url": "git+https://github.com/Player1os/postgresql-server-backup.git"
   },
   "keywords": [
-    "BuffPanel",
+    "postgresql",
     "backup"
   ],
   "author": "Osama Hassanein <player1os@gmail.com>",
   "license": "UNLICENSED",
   "bugs": {
-    "url": "https://github.com/Cellense/buffpanel-server-backup/issues"
+    "url": "https://github.com/Player1os/postgresql-server-backup/issues"
   },
-  "homepage": "https://github.com/Cellense/buffpanel-server-backup#readme",
+  "homepage": "https://github.com/Player1os/postgresql-server-backup#readme",
   "dependencies": {
     "@player1os/config": "^1.0.3",
     "bluebird": "^3.5.0",
