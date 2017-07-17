@@ -29,7 +29,10 @@ app.use((_req, res) => {
 	date.setHours(date.getHours() - config.APP_VERIFICATION_THRESHOLD)
 
 	// Verify that it is within the accepted threshold.
-	if (latestBackupFilename < dateDataType.toUtcDateTimeString(date)) {
+	if (latestBackupFilename < dateDataType.toUtcDateTimeString(date, {
+		dateDelimiter: '_',
+		timeDelimiter: '_',
+	})) {
 		res.status(httpStatus.INTERNAL_SERVER_ERROR).send(`The last backup occured at ${latestBackupFilename}`)
 		return
 	}

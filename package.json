@@ -41,7 +41,7 @@
   "homepage": "https://github.com/Player1os/postgresql-manager#readme",
   "dependencies": {
     "@player1os/config": "^1.0.3",
-    "@player1os/data-type-utility": "^1.0.9",
+    "@player1os/data-type-utility": "^1.0.10",
     "bluebird": "^3.5.0",
     "cron": "^1.2.1",
     "express": "^4.15.3",
