@@ -2,6 +2,7 @@
 import * as backupLock from '.../src/lib/backup_lock'
 
 // Load scoped modules.
+import config from '@player1os/config'
 import { date as dateDataType } from '@player1os/data-type-utility'
 
 // Load npm modules.
@@ -25,9 +26,16 @@ export default async (databaseName: string, backupDirectoryPath: string, backupF
 	}
 
 	// Spawn the pg dump process.
-	await spwanProcess('pg_dump', ['-Fc', databaseName], {
-		stdout: fs.createWriteStream(backupFilePath),
-	})
+	const result = await spwanProcess('pg_dump', [
+		'-Fc', databaseName,
+		'-h', config.APP_DATABASE_HOST,
+		'-U', config.APP_DATABASE_USERNAME,
+	], { stdout: fs.createWriteStream(backupFilePath) })
+
+	// Verify the process result.
+	if (result.code) {
+		throw new Error('Command failed: ' + JSON.stringify(result, null, 2))
+	}
 
 	// Create a regexp for catching all backup files.
 	const backupFileRegExp = new RegExp(`^.*\\${backupFileExtension}$`)

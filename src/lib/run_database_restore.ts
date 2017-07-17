@@ -1,6 +1,9 @@
 // Load app modules.
 import * as backupLock from '.../src/lib/backup_lock'
 
+// Load scoped modules.
+import config from '@player1os/config'
+
 // Load npm modules.
 import spwanProcess from 'spawn-process-promise'
 
@@ -18,7 +21,17 @@ export default async (databaseName: string, backupDirectoryPath: string, backupF
 	}
 
 	// Spawn the pg restore process.
-	await spwanProcess('pg_restore', ['-c', '-d', databaseName, backupFilePath])
+	const result = await spwanProcess('pg_restore', [
+		backupFilePath, '-c', '--if-exists', '-1',
+		'-d', databaseName,
+		'-h', config.APP_DATABASE_HOST,
+		'-U', config.APP_DATABASE_USERNAME,
+	])
+
+	// Verify the process result.
+	if (result.code) {
+		throw new Error('Command failed: ' + JSON.stringify(result, null, 2))
+	}
 
 	// Release the backup lock.
 	backupLock.release(backupDirectoryPath)
