@@ -20,21 +20,25 @@ export default async (databaseName: string, backupDirectoryPath: string, backupF
 		throw new Error('The lock could not be aquired')
 	}
 
-	// Spawn the pg restore process.
-	const result = await spwanProcess('pg_restore', [
-		backupFilePath, '-c', '--if-exists', '-1',
-		'-d', databaseName,
-		'-h', config.APP_DATABASE_HOST,
-		'-U', config.APP_DATABASE_USERNAME,
-	])
+	try {
+		// Spawn the pg restore process.
+		const result = await spwanProcess('pg_restore', [
+			backupFilePath, '-c', '--if-exists', '-1',
+			'-d', databaseName,
+			'-h', config.APP_DATABASE_HOST,
+			'-U', config.APP_DATABASE_USERNAME,
+		])
 
-	// Verify the process result.
-	if (result.code) {
-		throw new Error('Command failed: ' + JSON.stringify(result, null, 2))
+		// Verify the process result.
+		if (result.code) {
+			throw new Error('Command failed: ' + JSON.stringify(result, null, 2))
+		}
+	} catch (err) {
+		throw err
+	} finally {
+		// Release the backup lock.
+		backupLock.release(backupDirectoryPath)
 	}
-
-	// Release the backup lock.
-	backupLock.release(backupDirectoryPath)
 
 	// Return the name of the restored backup.
 	return backupFilePath

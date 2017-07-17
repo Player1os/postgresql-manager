@@ -25,42 +25,46 @@ export default async (databaseName: string, backupDirectoryPath: string, backupF
 		throw new Error('The lock could not be aquired')
 	}
 
-	// Spawn the pg dump process.
-	const result = await spwanProcess('pg_dump', [
-		'-Fc', databaseName,
-		'-h', config.APP_DATABASE_HOST,
-		'-U', config.APP_DATABASE_USERNAME,
-	], { stdout: fs.createWriteStream(backupFilePath) })
+	try {
+		// Spawn the pg dump process.
+		const result = await spwanProcess('pg_dump', [
+			'-Fc', databaseName,
+			'-h', config.APP_DATABASE_HOST,
+			'-U', config.APP_DATABASE_USERNAME,
+		], { stdout: fs.createWriteStream(backupFilePath) })
 
-	// Verify the process result.
-	if (result.code) {
-		throw new Error('Command failed: ' + JSON.stringify(result, null, 2))
+		// Verify the process result.
+		if (result.code) {
+			throw new Error('Command failed: ' + JSON.stringify(result, null, 2))
+		}
+
+		// Create a regexp for catching all backup files.
+		const backupFileRegExp = new RegExp(`^.*\\${backupFileExtension}$`)
+
+		// Retrieve the names of the existing backup files.
+		const backupFilenames = fs.readdirSync(backupDirectoryPath, 'utf8')
+			.filter((filename) => {
+				return backupFileRegExp.test(filename)
+			})
+
+		// Check if the maximum count of backup files has been exceeded.
+		if (backupFilenames.length > backupMaxCount) {
+			// Determine the oldest backup file.
+			const oldestBackupFilename = backupFilenames.reduce((currentOldestBackupFilename, filename) => {
+				return currentOldestBackupFilename < filename
+					? currentOldestBackupFilename
+					: filename
+			}, backupFilenames[0])
+
+			// Remove the oldest backup file.
+			fs.unlinkSync(path.join(backupDirectoryPath, oldestBackupFilename))
+		}
+	} catch (err) {
+		throw err
+	} finally {
+		// Release the backup lock.
+		backupLock.release(backupDirectoryPath)
 	}
-
-	// Create a regexp for catching all backup files.
-	const backupFileRegExp = new RegExp(`^.*\\${backupFileExtension}$`)
-
-	// Retrieve the names of the existing backup files.
-	const backupFilenames = fs.readdirSync(backupDirectoryPath, 'utf8')
-		.filter((filename) => {
-			return backupFileRegExp.test(filename)
-		})
-
-	// Check if the maximum count of backup files has been exceeded.
-	if (backupFilenames.length > backupMaxCount) {
-		// Determine the oldest backup file.
-		const oldestBackupFilename = backupFilenames.reduce((currentOldestBackupFilename, filename) => {
-			return currentOldestBackupFilename < filename
-				? currentOldestBackupFilename
-				: filename
-		}, backupFilenames[0])
-
-		// Remove the oldest backup file.
-		fs.unlinkSync(path.join(backupDirectoryPath, oldestBackupFilename))
-	}
-
-	// Release the backup lock.
-	backupLock.release(backupDirectoryPath)
 
 	// Return the name of the created backup.
 	return backupFilePath
