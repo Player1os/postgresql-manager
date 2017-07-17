@@ -15,8 +15,8 @@ import * as path from 'path'
 export default async (databaseName: string, backupDirectoryPath: string, backupFileExtension: string, backupMaxCount: number) => {
 	// Determine the backup file's name.
 	const backupFilePath = path.join(backupDirectoryPath, dateDataType.toUtcDateTimeString(new Date(), {
-		dateDelimiter: '_',
-		timeDelimiter: '_',
+		dateDelimiter: '-',
+		timeDelimiter: '-',
 	}) + backupFileExtension)
 
 	// Aquire the backup lock.
