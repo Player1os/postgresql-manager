@@ -1,11 +1,7 @@
-# OS specific files.
-.DS_Store
-Thumbs.db
+# Build generated files.
+build/*
 
-# IDEs configuration files.
-.vscode/*
-
-# Config files file.
+# Config files.
 .env
 pm2.json
 
@@ -13,5 +9,14 @@ pm2.json
 node_modules/*
 npm-debug.log*
 
-# Build generated files.
+# OS specific files.
+.DS_Store
+Thumbs.db
+
+# Runtime generated files.
+error.log
 output/*
+
+# Test coverage cache.
+.nyc_output
+coverage

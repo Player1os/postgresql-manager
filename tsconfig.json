@@ -1,0 +1,35 @@
+{
+	"awesomeTypescriptLoaderOptions": {
+		"compilerOptions": {
+			"target": "es2017"
+		},
+		"useBabel": true
+	},
+	"compilerOptions": {
+		"baseUrl": ".",
+		"experimentalDecorators": true,
+		"module": "commonjs",
+		"noImplicitAny": false,
+		"noImplicitThis": true,
+		"noUnusedLocals": true,
+		"noUnusedParameters": true,
+		"paths": {
+			"*": [
+				"*"
+			],
+			".../*": [
+				"./*"
+			]
+		},
+		"sourceMap": true,
+		"strictNullChecks": true,
+		"target": "es2015",
+		"typeRoots": [
+			"node_modules/@types"
+		]
+	},
+	"exclude": [
+		"build",
+		"node_modules"
+	]
+}

@@ -1,8 +1,8 @@
 {
   "apps": [
     {
-      "name": "buffpanel_sever_backup_development",
-      "script": "src",
+      "name": "postgresql-manager",
+      "script": "build",
       "cwd": ".",
       "log_date_format": "YYYY-MM-DD HH:mm:ss",
       "exec_mode": "fork_mode",
