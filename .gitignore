@@ -8,7 +8,6 @@ pm2.json
 # NPM generated files.
 node_modules/*
 npm-debug.log*
-package-lock.json
 
 # OS specific files.
 .DS_Store
