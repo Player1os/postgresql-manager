@@ -1,9 +1,7 @@
-// Load app modules.
-import * as backupLock from '.../src/lib/backup_lock'
-
 // Load scoped modules.
 import config from '@player1os/config'
 import { date as dateDataType } from '@player1os/data-type-utility'
+import * as fsLock from '@player1os/fs-lock'
 
 // Load npm modules.
 import spwanProcess from 'spawn-process-promise'
@@ -21,7 +19,8 @@ export default async (databaseName: string, backupDirectoryPath: string, backupF
 	}) + backupFileExtension)
 
 	// Aquire the backup lock.
-	if (!backupLock.aquire(backupDirectoryPath)) {
+	const isAquired = await fsLock.aquire(backupDirectoryPath)
+	if (!isAquired) {
 		throw new Error('The lock could not be aquired')
 	}
 
@@ -63,7 +62,7 @@ export default async (databaseName: string, backupDirectoryPath: string, backupF
 		throw err
 	} finally {
 		// Release the backup lock.
-		backupLock.release(backupDirectoryPath)
+		await fsLock.release(backupDirectoryPath)
 	}
 
 	// Return the name of the created backup.
