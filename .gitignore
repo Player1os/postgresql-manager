@@ -8,10 +8,6 @@ build/*
 node_modules/*
 npm-debug.log*
 
-# OS specific files.
-.DS_Store
-Thumbs.db
-
 # Runtime generated files.
 error.log
 output/*

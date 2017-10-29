@@ -43,7 +43,6 @@
     "@player1os/config": "^1.0.3",
     "@player1os/data-type-utility": "^1.0.10",
     "@player1os/fs-lock": "^1.0.0",
-    "bluebird": "^3.5.0",
     "cron": "^1.2.1",
     "express": "^4.15.3",
     "http-status": "^1.0.1",
