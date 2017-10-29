@@ -3,7 +3,6 @@ build/*
 
 # Config files.
 .env
-pm2.json
 
 # NPM generated files.
 node_modules/*
