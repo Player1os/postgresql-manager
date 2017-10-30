@@ -33,7 +33,7 @@ export default async (databaseName: string, backupDirectoryPath: string, backupF
 		], { stdout: fs.createWriteStream(backupFilePath) })
 
 		// Verify the process result.
-		if (result.code) {
+		if (result.code !== 0) {
 			throw new Error('Command failed: ' + JSON.stringify(result, null, 2))
 		}
 

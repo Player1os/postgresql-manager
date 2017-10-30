@@ -1,14 +1,12 @@
 {
-  "apps": [
-    {
-      "name": "postgresql-manager",
-      "script": "build",
-      "cwd": ".",
-      "log_date_format": "YYYY-MM-DD HH:mm:ss",
-      "exec_mode": "fork_mode",
-      "error_file": "output/err.log",
-      "out_file": "output/out.log",
-      "combine_logs": true
-    }
-  ]
+	"apps": [{
+		"name": "postgresql-manager",
+		"script": "index.js",
+		"cwd": "dist/current",
+		"log_date_format": "YYYY-MM-DD HH:mm:ss",
+		"exec_mode": "fork_mode",
+		"error_file": "../../output/err.log",
+		"out_file": "../../output/out.log",
+		"combine_logs": false
+	}]
 }

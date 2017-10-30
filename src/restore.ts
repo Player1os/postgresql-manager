@@ -16,13 +16,13 @@ const normalizedBackupDirectoryPath = path.normalize(config.APP_BACKUP_DIRECTORY
 let backupFilename = process.argv[2]
 
 // Check if it was really loaded.
-if (backupFilename) {
+if ((backupFilename === undefined) || (backupFilename === '')) {
+	// Determine the newest backup file.
+	backupFilename = locateLatestBackup(normalizedBackupDirectoryPath, config.APP_BACKUP_EXTENSION)
+} else {
 	if (!fs.existsSync(path.join(normalizedBackupDirectoryPath, backupFilename))) {
 		throw new Error('There is no backup file with the specified name')
 	}
-} else {
-	// Determine the newest backup file.
-	backupFilename = locateLatestBackup(normalizedBackupDirectoryPath, config.APP_BACKUP_EXTENSION)
 }
 
 // Execute the database restore operation.
