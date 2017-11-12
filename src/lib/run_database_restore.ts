@@ -1,9 +1,11 @@
+// Load local modules.
+import env from '.../src/.env'
+
 // Load scoped modules.
-import config from '@player1os/config'
 import * as fsLock from '@player1os/fs-lock'
 
 // Load npm modules.
-import spwanProcess from 'spawn-process-promise'
+import spawnProcess from 'spawn-process-promise'
 
 // Load node modules.
 import * as path from 'path'
@@ -21,11 +23,11 @@ export default async (databaseName: string, backupDirectoryPath: string, backupF
 
 	try {
 		// Spawn the pg restore process.
-		const result = await spwanProcess('pg_restore', [
+		const result = await spawnProcess('pg_restore', [
 			backupFilePath, '-c', '--if-exists', '-1',
 			'-d', databaseName,
-			'-h', config.APP_DATABASE_HOST,
-			'-U', config.APP_DATABASE_USERNAME,
+			'-h', env.APP_DATABASE_HOST,
+			'-U', env.APP_DATABASE_USERNAME,
 		])
 
 		// Verify the process result.

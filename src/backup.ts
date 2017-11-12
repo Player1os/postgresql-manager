@@ -1,21 +1,23 @@
-// Load app modules.
+#!/usr/bin/env node
+
+// Load local modules.
+import env from '.../src/.env'
 import runDatabaseBackup from '.../src/lib/run_database_backup'
 
 // Load scoped modules.
-import config from '@player1os/config'
+import executePromise from '@player1os/execute-promise'
 
 // Load node modules.
 import * as path from 'path'
 
-// Execute the database backup operation.
-runDatabaseBackup(config.APP_DATABASE_NAME, path.normalize(config.APP_BACKUP_DIRECTORY),
-	config.APP_BACKUP_EXTENSION, config.APP_BACKUP_MAX_COUNT)
+executePromise(async () => {
+	// Execute the database backup operation.
+	const backupFilename = await runDatabaseBackup(
+		env.APP_DATABASE_NAME,
+		path.normalize(env.APP_BACKUP_DIRECTORY),
+		env.APP_BACKUP_EXTENSION,
+		env.APP_BACKUP_MAX_COUNT)
+
 	// Report success.
-	.then((backupFilename) => {
-		// tslint:disable-next-line:no-console
-		console.log(`The backup file '${backupFilename}' has been successfully created`)
-	})
-	// Exit on error.
-	.catch((err) => {
-		throw err
-	})
+	console.log(`The backup file '${backupFilename}' has been successfully created`) // tslint:disable-line:no-console
+})

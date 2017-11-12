@@ -5,6 +5,9 @@ declare const _env_: {
 	APP_ROOT_PATH: string,
 	APP_VERSION: string,
 
+	APP_GRACEFUL_SHUTDOWN_TIMEOUT_MS: number, // integer
+	APP_GRACEFUL_SHUTDOWN_HTTP_CONNECTION_TIMEOUT_MS: number, // integer
+
 	APP_CRON_STRING: string,
 	APP_VERIFICATION_THRESHOLD: number, // integer
 	APP_DATABASE_NAME: string,
@@ -18,10 +21,6 @@ declare const _env_: {
 
 	APP_DATABASE_HOST: string,
 	APP_DATABASE_USERNAME: string,
-}
-
-if (_env_ === undefined) {
-	throw new Error('The env config has not been loaded.')
 }
 
 export default _env_

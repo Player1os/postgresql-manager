@@ -10,7 +10,8 @@
 			]
 		},
 		"typeRoots": [
-			"./node_modules/@types"
+			"node_modules/@types",
+			"src/@types"
 		]
 	},
 	"exclude": [
@@ -18,5 +19,5 @@
 		"dist",
 		"node_modules"
 	],
-	"extends": "./node_modules/@player1os/tsconfig/tsconfig"
+	"extends": "./node_modules/@player1os/tsconfig/index"
 }

@@ -1,10 +1,12 @@
+// Load local modules.
+import env from '.../src/.env'
+
 // Load scoped modules.
-import config from '@player1os/config'
 import { date as dateDataType } from '@player1os/data-type-utility'
 import * as fsLock from '@player1os/fs-lock'
 
 // Load npm modules.
-import spwanProcess from 'spawn-process-promise'
+import spawnProcess from 'spawn-process-promise'
 
 // Load node modules.
 import * as fs from 'fs'
@@ -16,6 +18,7 @@ export default async (databaseName: string, backupDirectoryPath: string, backupF
 	const backupFilePath = path.join(backupDirectoryPath, dateDataType.toUtcDateTimeString(new Date(), {
 		dateDelimiter: '-',
 		timeDelimiter: '-',
+		portionDelimiter: '_',
 	}) + backupFileExtension)
 
 	// Aquire the backup lock.
@@ -26,10 +29,10 @@ export default async (databaseName: string, backupDirectoryPath: string, backupF
 
 	try {
 		// Spawn the pg dump process.
-		const result = await spwanProcess('pg_dump', [
+		const result = await spawnProcess('pg_dump', [
 			'-Fc', databaseName,
-			'-h', config.APP_DATABASE_HOST,
-			'-U', config.APP_DATABASE_USERNAME,
+			'-h', env.APP_DATABASE_HOST,
+			'-U', env.APP_DATABASE_USERNAME,
 		], { stdout: fs.createWriteStream(backupFilePath) })
 
 		// Verify the process result.

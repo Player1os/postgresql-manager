@@ -10,9 +10,7 @@ node_modules/*
 npm-debug.log*
 
 # Runtime generated files.
-error.log
 output/*
-ts-node-*
 
 # Test coverage cache.
 .nyc_output
