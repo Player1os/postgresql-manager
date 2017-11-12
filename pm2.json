@@ -7,6 +7,7 @@
 		"exec_mode": "fork_mode",
 		"error_file": "../../output/err.log",
 		"out_file": "../../output/out.log",
+		"kill_timeout" : 12000,
 		"combine_logs": false
 	}]
 }
