@@ -10,8 +10,6 @@
     "preversion": "node-js-application-preversion",
     "postversion": "node-js-application-postversion",
     "start": "node-js-application-start",
-    "action:backup": "npm start -- src/backup.ts",
-    "action:restore": "npm start -- src/restore.ts",
     "build:watch": "node-js-application-build-watch",
     "build": "node-js-application-build",
     "clean": "node-js-application-clean",
@@ -20,6 +18,8 @@
     "lint": "node-js-application-lint",
     "migrate": "node-js-application-migrate",
     "run": "node-js-application-run",
+    "task:backup": "npm start -- src/backup.ts",
+    "task:restore": "npm start -- src/restore.ts",
     "test:watch": "node-js-application-test-watch",
     "test": "node-js-application-test",
     "validate": "node-js-application-validate"
@@ -43,6 +43,7 @@
     "@player1os/execute-promise": "^1.0.1",
     "@player1os/express-utility": "^1.3.5",
     "@player1os/fs-lock": "^1.1.2",
+    "@player1os/node-js-application-runtime": "^1.0.1",
     "cron": "^1.3.0",
     "express": "^4.16.2",
     "http-status": "^1.0.1",
@@ -50,7 +51,7 @@
     "spawn-process-promise": "^1.2.6"
   },
   "devDependencies": {
-    "@player1os/node-js-application-support": "^1.2.1",
+    "@player1os/node-js-application-support": "^1.2.2",
     "@player1os/nyc-config": "^1.0.0",
     "@player1os/tsconfig": "^1.0.10",
     "@player1os/tslint-config": "^1.3.7",
