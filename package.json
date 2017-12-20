@@ -4,7 +4,7 @@
   "description": "A small application that can run regular backups and on-demand restorations for a postgresql database",
   "engines": {
     "node": "~8.7.0",
-    "npm": "~5.5.1"
+    "npm": "~5.6.0"
   },
   "scripts": {
     "preversion": "node-js-application-preversion",
