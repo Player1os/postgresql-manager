@@ -8,7 +8,7 @@ import runDatabaseBackup from '.../src/lib/run_database_backup'
 // Load scoped modules.
 import executePromise from '@player1os/execute-promise'
 import { HttpServer } from '@player1os/express-utility'
-import { gracefulShutdown } from '@player1os/node-js-application-support'
+import gracefulShutdown from '@player1os/graceful-shutdown'
 
 // Load npm modules.
 import * as cron from 'cron'
