@@ -1,6 +1,6 @@
 {
   "name": "postgresql-manager",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "description": "A small application that can run regular backups and on-demand restorations for a postgresql database",
   "engines": {
     "node": "^8.x",
